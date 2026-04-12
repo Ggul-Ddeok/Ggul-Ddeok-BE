@@ -17,7 +17,7 @@ public class FeignConfig {
 
     @Bean
     public RequestInterceptor youthApiKeyInterceptor() {
-        return template -> template.query("apiKeyNm", youthPolicyProperties.getApiKey());
+        return template -> template.query("apiKeyNm", youthPolicyProperties.apiKey());
     }
 
     @Bean
