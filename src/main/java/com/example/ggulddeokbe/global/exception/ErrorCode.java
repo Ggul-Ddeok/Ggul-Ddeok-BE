@@ -27,6 +27,9 @@ public enum ErrorCode {
     OAUTH_EMAIL_NOT_FOUND(HttpStatus.UNAUTHORIZED, "OAuth 이메일 정보를 찾을 수 없습니다."),
     OAUTH_ACCOUNT_ID_NOT_FOUND(HttpStatus.UNAUTHORIZED, "OAuth 계정 ID를 찾을 수 없습니다."),
 
+    // Policy
+    POLICY_NOT_FOUND(HttpStatus.NOT_FOUND, "정책을 찾을 수 없습니다."),
+
     // Youth API
     YOUTH_API_INVALID_KEY(HttpStatus.UNAUTHORIZED, "온통청년 API 인증키가 유효하지 않습니다."),
     YOUTH_API_NOT_FOUND(HttpStatus.NOT_FOUND, "온통청년 API에서 데이터를 찾을 수 없습니다."),

@@ -51,6 +51,7 @@ public class SecurityConfig {
                 )
             )
             .authorizeHttpRequests(authorizeRequests -> authorizeRequests
+                .requestMatchers("/ggulddeok/policies", "/ggulddeok/policies/**").permitAll()
                 .anyRequest().authenticated())
             .addFilterBefore(new JwtFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
             .addFilterBefore(new GlobalExceptionFilter(objectMapper), JwtFilter.class)
@@ -61,5 +62,4 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 }
