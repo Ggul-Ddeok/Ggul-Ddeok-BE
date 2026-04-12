@@ -36,6 +36,9 @@ out/
 ### VS Code ###
 .vscode/
 
+### Redis ###
+dump.rdb
+
 ### AI ###
 AGENTS.md
 CLAUDE.md
