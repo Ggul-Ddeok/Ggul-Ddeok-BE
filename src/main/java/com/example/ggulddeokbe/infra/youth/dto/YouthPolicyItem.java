@@ -8,6 +8,7 @@ public record YouthPolicyItem(
 
         // 정책 기본 정보
         @JsonProperty("plcyNm")           String plcyNm,
+        @JsonProperty("plcyKywdNm")       String plcyKywdNm,
         @JsonProperty("plcyExplnCn")      String plcyExplnCn,
         @JsonProperty("plcySprtCn")       String plcySprtCn,
         @JsonProperty("lclsfNm")          String lclsfNm,
