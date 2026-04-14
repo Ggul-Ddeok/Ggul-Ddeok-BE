@@ -9,19 +9,8 @@ public record PolicyListResponse(
     public record PolicyItem(
             String plcyNo,
             String policyName,
-            String description,
-            String supportContent,
+            String keywords,
             String largeCategoryName,
-            String mediumCategoryName,
-            String applicationPeriod,
-            String supportScale,
-            String minAge,
-            String maxAge,
-            String applyUrl,
-            String refUrl1,
-            String refUrl2,
-            String organizationName,
-            String regionCode,
-            String schoolCode
+            String description
     ) {}
 }

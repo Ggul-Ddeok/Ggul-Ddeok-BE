@@ -83,20 +83,9 @@ public class PolicyQueryService {
                 .map(item -> new PolicyListResponse.PolicyItem(
                         item.plcyNo(),
                         item.plcyNm(),
-                        item.plcyExplnCn(),
-                        item.plcySprtCn(),
+                        item.plcyKywdNm(),
                         item.lclsfNm(),
-                        item.mclsfNm(),
-                        item.aplyYmd(),
-                        item.sprtSclCnt(),
-                        item.sprtTrgtMinAge(),
-                        item.sprtTrgtMaxAge(),
-                        item.aplyUrlAddr(),
-                        item.refUrlAddr1(),
-                        item.refUrlAddr2(),
-                        item.sprvsnInstCdNm(),
-                        item.zipCd(),
-                        item.schoolCd()
+                        item.plcyExplnCn()
                 ))
                 .toList();
         return new PolicyListResponse(totalCount, policies);
