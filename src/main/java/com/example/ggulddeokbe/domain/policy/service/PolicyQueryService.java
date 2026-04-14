@@ -1,5 +1,6 @@
 package com.example.ggulddeokbe.domain.policy.service;
 
+import com.example.ggulddeokbe.domain.policy.domain.InterestArea;
 import com.example.ggulddeokbe.domain.policy.domain.Region;
 import com.example.ggulddeokbe.domain.policy.dto.PolicyDetailResponse;
 import com.example.ggulddeokbe.domain.policy.dto.PolicyListResponse;
@@ -33,8 +34,8 @@ public class PolicyQueryService {
     private final RedisTemplate<String, Object> redisTemplate;
     private final ObjectMapper objectMapper;
 
-    public PolicyListResponse getPolicies(Region region) {
-        String cacheKey = LIST_CACHE_PREFIX + region.getCode();
+    public PolicyListResponse getPolicies(Region region, InterestArea interestArea) {
+        String cacheKey = LIST_CACHE_PREFIX + region.getCode() + ":" + interestArea.getCode();
 
         Object cached = redisTemplate.opsForValue().get(cacheKey);
         if (cached != null) {
@@ -42,7 +43,7 @@ public class PolicyQueryService {
         }
 
         YouthPolicyApiResponse apiResponse = youthPolicyClient.getPolicy(
-                PAGE_TYPE_LIST, RTN_TYPE_JSON, 1, PAGE_SIZE, region.getZipCd(), null
+                PAGE_TYPE_LIST, RTN_TYPE_JSON, 1, PAGE_SIZE, region.getZipCd(), null, interestArea.getLclsfNm()
         );
 
         YouthPolicyResult result = apiResponse.result();
@@ -63,7 +64,7 @@ public class PolicyQueryService {
         }
 
         YouthPolicyApiResponse apiResponse = youthPolicyClient.getPolicy(
-                PAGE_TYPE_DETAIL, RTN_TYPE_JSON, null, null, null, plcyNo
+                PAGE_TYPE_DETAIL, RTN_TYPE_JSON, null, null, null, plcyNo, null
         );
 
         YouthPolicyResult result = apiResponse.result();

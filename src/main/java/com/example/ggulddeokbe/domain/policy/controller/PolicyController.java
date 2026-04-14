@@ -1,5 +1,6 @@
 package com.example.ggulddeokbe.domain.policy.controller;
 
+import com.example.ggulddeokbe.domain.policy.domain.InterestArea;
 import com.example.ggulddeokbe.domain.policy.domain.Region;
 import com.example.ggulddeokbe.domain.policy.dto.PolicyDetailResponse;
 import com.example.ggulddeokbe.domain.policy.dto.PolicyListResponse;
@@ -21,9 +22,10 @@ public class PolicyController {
 
     @GetMapping
     public ResponseEntity<PolicyListResponse> getPolicies(
-            @RequestParam("region") Region region
+            @RequestParam("region") Region region,
+            @RequestParam(value = "interest", defaultValue = "전체") InterestArea interestArea
     ) {
-        return ResponseEntity.ok(policyQueryService.getPolicies(region));
+        return ResponseEntity.ok(policyQueryService.getPolicies(region, interestArea));
     }
 
     @GetMapping("/{plcyNo}")
