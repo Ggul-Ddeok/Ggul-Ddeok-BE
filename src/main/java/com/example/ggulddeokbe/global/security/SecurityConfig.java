@@ -51,7 +51,7 @@ public class SecurityConfig {
                 )
             )
             .authorizeHttpRequests(authorizeRequests -> authorizeRequests
-                .requestMatchers("/ggulddeok/policies", "/ggulddeok/policies/**").permitAll()
+                .requestMatchers("/policies", "/policies/**").permitAll()
                 .anyRequest().authenticated())
             .addFilterBefore(new JwtFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
             .addFilterBefore(new GlobalExceptionFilter(objectMapper), JwtFilter.class)
