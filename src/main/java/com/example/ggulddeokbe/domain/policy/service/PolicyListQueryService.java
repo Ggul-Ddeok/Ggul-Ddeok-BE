@@ -19,8 +19,8 @@ import java.util.concurrent.TimeUnit;
 public class PolicyListQueryService {
 
     private static final String CACHE_PREFIX  = "policies:";
-    private static final long   CACHE_TTL_HOURS = 24;
-    private static final int    PAGE_SIZE     = 100;
+    private static final long CACHE_TTL_HOURS = 24;
+    private static final int PAGE_SIZE = 100;
 
     private final YouthPolicyClient youthPolicyClient;
     private final RedisTemplate<String, Object> redisTemplate;
@@ -35,7 +35,7 @@ public class PolicyListQueryService {
         }
 
         YouthPolicyResult result = youthPolicyClient.getPolicy(
-                "1", "json", 1, PAGE_SIZE, region.getZipCd(), null, interestArea.getLclsfNm()
+            "1", "json", 1, PAGE_SIZE, region.getZipCd(), null, interestArea.getLclsfNm()
         ).result();
 
         List<YouthPolicyItem> items = result.youthPolicyList() != null ? result.youthPolicyList() : List.of();
