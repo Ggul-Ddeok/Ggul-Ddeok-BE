@@ -23,7 +23,8 @@ public record PolicyDetailResponse(
         String refUrl2,
         String organizationName,
         String regionCode,
-        String schoolCode
+        String schoolCode,
+        String aiDescription
 ) {
     public static PolicyDetailResponse from(YouthPolicyItem item) {
         return new PolicyDetailResponse(
@@ -47,7 +48,19 @@ public record PolicyDetailResponse(
                 item.refUrlAddr2(),
                 item.sprvsnInstCdNm(),
                 item.zipCd(),
-                item.schoolCd()
+                item.schoolCd(),
+                null
+        );
+    }
+
+    public PolicyDetailResponse withAiDescription(String aiDescription) {
+        return new PolicyDetailResponse(
+                plcyNo, policyName, description, supportContent,
+                largeCategoryName, mediumCategoryName, applicationPeriod, supportScale,
+                minAge, maxAge, applicationMethod, requiredDocuments,
+                screeningMethod, additionalQualification, otherMatters,
+                applyUrl, refUrl1, refUrl2, organizationName, regionCode, schoolCode,
+                aiDescription
         );
     }
 }

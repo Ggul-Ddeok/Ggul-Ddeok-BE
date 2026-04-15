@@ -51,6 +51,10 @@ jwt:
 youth:
   api-key: ${YOUTH_API_KEY}
 
+groq:
+  api-key: ${GROQ_API_KEY}
+  model: llama-3.1-8b-instant
+
 logging:
   level:
     com.example.ggulddeokbe.infra.feign: DEBUG
