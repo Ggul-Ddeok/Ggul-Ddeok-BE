@@ -55,21 +55,22 @@ public class GeminiSummaryService {
     }
 
     private String buildPrompt(PolicyDetailResponse policy) {
-        return String.format("""
-                다음은 청년 정책 정보입니다.
-                정책명: %s
-                설명: %s
-                지원 내용: %s
-                대상 조건: %s
-
-                위 정보를 바탕으로, 이 정책이 무엇인지, 왜 필요한지, 누구를 대상으로 하는지를
-                청년들이 쉽게 이해할 수 있도록 한국어로 2~3문장으로 설명해주세요.
-                """,
+        String raw = String.join(" ",
                 nullToEmpty(policy.policyName()),
                 nullToEmpty(policy.description()),
                 nullToEmpty(policy.supportContent()),
-                nullToEmpty(policy.additionalQualification())
-        );
+                nullToEmpty(policy.requiredDocuments()),
+                nullToEmpty(policy.organizationName())
+        ).trim();
+
+        return String.format("""
+                다음은 청년 정책 원문 정보입니다.
+
+                %s
+
+                위 내용을 청년들이 쉽게 이해할 수 있도록 한국어로 2~3문장으로 자연스럽게 요약해주세요.
+                요약문만 출력하고, 별도의 제목이나 부가 설명은 붙이지 마세요.
+                """, raw);
     }
 
     @SuppressWarnings("unchecked")
