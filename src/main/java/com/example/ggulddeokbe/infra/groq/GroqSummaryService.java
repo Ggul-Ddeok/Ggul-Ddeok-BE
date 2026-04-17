@@ -1,4 +1,4 @@
-package com.example.ggulddeokbe.infra.gemini;
+package com.example.ggulddeokbe.infra.groq;
 
 import com.example.ggulddeokbe.domain.policy.dto.PolicyDetailResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -12,22 +12,22 @@ import java.util.Map;
 
 @Slf4j
 @Service
-public class GeminiSummaryService {
+public class GroqSummaryService {
 
     private static final String GROQ_URL = "https://api.groq.com/openai/v1/chat/completions";
 
     private final RestClient restClient;
     private final String model;
 
-    public GeminiSummaryService(
-            @Value("${groq.api-key}") String apiKey,
-            @Value("${groq.model}") String model
+    public GroqSummaryService(
+        @Value("${groq.api-key}") String apiKey,
+        @Value("${groq.model}") String model
     ) {
         this.model = model;
         this.restClient = RestClient.builder()
-                .baseUrl(GROQ_URL)
-                .defaultHeader("Authorization", "Bearer " + apiKey)
-                .build();
+            .baseUrl(GROQ_URL)
+            .defaultHeader("Authorization", "Bearer " + apiKey)
+            .build();
     }
 
     public String generateDescription(PolicyDetailResponse policy) {
@@ -35,17 +35,17 @@ public class GeminiSummaryService {
 
         try {
             Map<?, ?> body = Map.of(
-                    "model", model,
-                    "messages", List.of(
-                            Map.of("role", "user", "content", prompt)
-                    )
+                "model", model,
+                "messages", List.of(
+                    Map.of("role", "user", "content", prompt)
+                )
             );
 
             Map<?, ?> response = restClient.post()
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .body(body)
-                    .retrieve()
-                    .body(Map.class);
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(body)
+                .retrieve()
+                .body(Map.class);
 
             return extractText(response);
         } catch (Exception e) {
@@ -56,11 +56,11 @@ public class GeminiSummaryService {
 
     private String buildPrompt(PolicyDetailResponse policy) {
         String raw = String.join(" ",
-                nullToEmpty(policy.policyName()),
-                nullToEmpty(policy.description()),
-                nullToEmpty(policy.supportContent()),
-                nullToEmpty(policy.requiredDocuments()),
-                nullToEmpty(policy.organizationName())
+            nullToEmpty(policy.policyName()),
+            nullToEmpty(policy.description()),
+            nullToEmpty(policy.supportContent()),
+            nullToEmpty(policy.requiredDocuments()),
+            nullToEmpty(policy.organizationName())
         ).trim();
 
         return String.format("""

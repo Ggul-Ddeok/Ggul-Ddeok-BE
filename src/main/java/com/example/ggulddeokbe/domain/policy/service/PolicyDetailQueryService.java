@@ -4,7 +4,7 @@ import com.example.ggulddeokbe.domain.policy.dto.PolicyDetailResponse;
 import com.example.ggulddeokbe.global.exception.BaseException;
 import com.example.ggulddeokbe.global.exception.ErrorCode;
 import com.example.ggulddeokbe.infra.feign.client.YouthPolicyClient;
-import com.example.ggulddeokbe.infra.gemini.GeminiSummaryService;
+import com.example.ggulddeokbe.infra.groq.GroqSummaryService;
 import com.example.ggulddeokbe.infra.youth.dto.YouthPolicyItem;
 import com.example.ggulddeokbe.infra.youth.dto.YouthPolicyResult;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -25,7 +25,7 @@ public class PolicyDetailQueryService {
     private final YouthPolicyClient youthPolicyClient;
     private final RedisTemplate<String, Object> redisTemplate;
     private final ObjectMapper objectMapper;
-    private final GeminiSummaryService geminiSummaryService;
+    private final GroqSummaryService groqSummaryService;
 
     public PolicyDetailResponse getPolicyDetail(String plcyNo) {
         String cacheKey = CACHE_PREFIX + plcyNo;
@@ -36,7 +36,7 @@ public class PolicyDetailQueryService {
         }
 
         YouthPolicyResult result = youthPolicyClient.getPolicy(
-                "2", "json", null, null, null, plcyNo, null
+            "2", "json", null, null, null, plcyNo, null
         ).result();
 
         List<YouthPolicyItem> items = result.youthPolicyList();
@@ -45,7 +45,7 @@ public class PolicyDetailQueryService {
         }
 
         PolicyDetailResponse response = PolicyDetailResponse.from(items.get(0));
-        String aiDescription = geminiSummaryService.generateDescription(response);
+        String aiDescription = groqSummaryService.generateDescription(response);
         response = response.withAiDescription(aiDescription);
 
         redisTemplate.opsForValue().set(cacheKey, response, CACHE_TTL_HOURS, TimeUnit.HOURS);
