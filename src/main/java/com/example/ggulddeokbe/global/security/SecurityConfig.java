@@ -1,6 +1,8 @@
 package com.example.ggulddeokbe.global.security;
 
+import com.example.ggulddeokbe.global.exception.ErrorCode;
 import com.example.ggulddeokbe.global.exception.GlobalExceptionFilter;
+import com.example.ggulddeokbe.global.exception.response.ErrorResponse;
 import com.example.ggulddeokbe.global.security.jwt.JwtFilter;
 import com.example.ggulddeokbe.global.security.jwt.JwtTokenProvider;
 import com.example.ggulddeokbe.infra.oauth.handler.Oauth2FailureHandler;
@@ -10,6 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -54,6 +57,14 @@ public class SecurityConfig {
                 .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
                 .requestMatchers("/policies", "/policies/**").permitAll()
                 .anyRequest().authenticated())
+            .exceptionHandling(e -> e
+                .authenticationEntryPoint((request, response, authException) -> {
+                    response.setStatus(ErrorCode.UNAUTHORIZED.getStatus().value());
+                    response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+                    response.setCharacterEncoding("UTF-8");
+                    objectMapper.writeValue(response.getWriter(), ErrorResponse.of(ErrorCode.UNAUTHORIZED));
+                })
+            )
             .addFilterBefore(new JwtFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
             .addFilterBefore(new GlobalExceptionFilter(objectMapper), JwtFilter.class)
             .build();

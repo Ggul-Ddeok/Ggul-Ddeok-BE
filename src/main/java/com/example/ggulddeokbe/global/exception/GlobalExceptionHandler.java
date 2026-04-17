@@ -15,26 +15,26 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleBaseException(BaseException e) {
         ErrorCode errorCode = e.getErrorCode();
         return ResponseEntity
-                .status(errorCode.getStatus())
-                .body(ErrorResponse.of(errorCode));
+            .status(errorCode.getStatus())
+            .body(ErrorResponse.of(errorCode));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleValidationException(MethodArgumentNotValidException e) {
         String message = e.getBindingResult().getFieldErrors().stream()
-                .map(error -> error.getField() + ": " + error.getDefaultMessage())
-                .findFirst()
-                .orElse("입력값이 올바르지 않습니다.");
+            .map(error -> error.getField() + ": " + error.getDefaultMessage())
+            .findFirst()
+            .orElse("입력값이 올바르지 않습니다.");
         return ResponseEntity
-                .badRequest()
-                .body(ErrorResponse.of(400, message));
+            .badRequest()
+            .body(ErrorResponse.of(400, message));
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleException(Exception e) {
         log.error("Unexpected error occurred", e);
         return ResponseEntity
-                .internalServerError()
-                .body(ErrorResponse.of(ErrorCode.INTERNAL_SERVER_ERROR));
+            .internalServerError()
+            .body(ErrorResponse.of(ErrorCode.INTERNAL_SERVER_ERROR));
     }
 }

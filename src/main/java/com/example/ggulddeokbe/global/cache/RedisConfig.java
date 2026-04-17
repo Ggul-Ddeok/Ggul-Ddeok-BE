@@ -13,7 +13,7 @@ public class RedisConfig {
 
     @Bean
     public RedisTemplate<String, Object> redisTemplate(
-            RedisConnectionFactory factory, ObjectMapper objectMapper
+        RedisConnectionFactory factory, ObjectMapper objectMapper
     ) {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
         template.setConnectionFactory(factory);

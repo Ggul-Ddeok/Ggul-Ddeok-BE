@@ -28,8 +28,8 @@ public class PolicyController {
     @Operation(summary = "정책 목록 조회", description = "지역과 관심 분야로 청년 정책 목록을 조회합니다.")
     @GetMapping
     public ResponseEntity<PolicyListResponse> getPolicies(
-            @RequestParam("region") Region region,
-            @RequestParam(value = "interest", defaultValue = "전체") InterestArea interestArea
+        @RequestParam("region") Region region,
+        @RequestParam(value = "interest", defaultValue = "전체") InterestArea interestArea
     ) {
         return ResponseEntity.ok(policyListQueryService.getPolicies(region, interestArea));
     }
@@ -37,7 +37,7 @@ public class PolicyController {
     @Operation(summary = "정책 상세 조회", description = "정책 번호로 특정 청년 정책의 상세 정보를 조회합니다.")
     @GetMapping("/{plcyNo}")
     public ResponseEntity<PolicyDetailResponse> getPolicyDetail(
-            @PathVariable("plcyNo") String plcyNo
+        @PathVariable("plcyNo") String plcyNo
     ) {
         return ResponseEntity.ok(policyDetailQueryService.getPolicyDetail(plcyNo));
     }

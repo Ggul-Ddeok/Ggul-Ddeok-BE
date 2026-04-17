@@ -22,6 +22,6 @@ public class UserFacade {
         }
         String email = authentication.getName();
         return userRepository.findByEmail(email)
-                .orElseThrow(() -> new BaseException(ErrorCode.USER_NOT_FOUND));
+            .orElseThrow(() -> new BaseException(ErrorCode.USER_NOT_FOUND));
     }
 }

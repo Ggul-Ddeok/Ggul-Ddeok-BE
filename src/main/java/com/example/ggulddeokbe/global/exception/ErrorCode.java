@@ -30,6 +30,10 @@ public enum ErrorCode {
     // Policy
     POLICY_NOT_FOUND(HttpStatus.NOT_FOUND, "정책을 찾을 수 없습니다."),
 
+    // Bookmark
+    BOOKMARK_NOT_FOUND(HttpStatus.NOT_FOUND, "북마크를 찾을 수 없습니다."),
+    BOOKMARK_ALREADY_EXISTS(HttpStatus.CONFLICT, "이미 북마크된 정책입니다."),
+
     // Youth API
     YOUTH_API_INVALID_KEY(HttpStatus.UNAUTHORIZED, "온통청년 API 인증키가 유효하지 않습니다."),
     YOUTH_API_NOT_FOUND(HttpStatus.NOT_FOUND, "온통청년 API에서 데이터를 찾을 수 없습니다."),
