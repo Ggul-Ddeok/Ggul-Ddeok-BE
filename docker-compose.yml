@@ -43,6 +43,7 @@ services:
       ACCESS_EXP: ${ACCESS_EXP}
       YOUTH_API_KEY: ${YOUTH_API_KEY}
       GROQ_API_KEY: ${GROQ_API_KEY}
+      FRONTEND_REDIRECT_URI: ${FRONTEND_REDIRECT_URI}
     depends_on:
       mysql:
         condition: service_healthy
