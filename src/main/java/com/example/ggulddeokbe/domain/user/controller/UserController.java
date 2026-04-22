@@ -2,6 +2,8 @@ package com.example.ggulddeokbe.domain.user.controller;
 
 import com.example.ggulddeokbe.domain.user.dto.UserInfoResponse;
 import com.example.ggulddeokbe.domain.user.service.UserQueryService;
+import com.example.ggulddeokbe.global.exception.ErrorCode;
+import com.example.ggulddeokbe.global.swagger.ApiErrorCodes;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +21,7 @@ public class UserController {
     private final UserQueryService userQueryService;
 
     @Operation(summary = "내 정보 조회", description = "현재 로그인한 사용자의 정보를 반환합니다.")
+    @ApiErrorCodes({ErrorCode.UNAUTHORIZED, ErrorCode.USER_NOT_FOUND})
     @GetMapping("/me")
     public ResponseEntity<UserInfoResponse> getMe() {
         return ResponseEntity.ok(userQueryService.getMe());
