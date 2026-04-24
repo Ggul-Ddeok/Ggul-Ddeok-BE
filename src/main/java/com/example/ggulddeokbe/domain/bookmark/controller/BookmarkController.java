@@ -8,6 +8,7 @@ import com.example.ggulddeokbe.global.swagger.ApiErrorCodes;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +26,7 @@ public class BookmarkController {
     @Operation(summary = "북마크 추가")
     @ApiErrorCodes({ErrorCode.UNAUTHORIZED, ErrorCode.USER_NOT_FOUND, ErrorCode.POLICY_NOT_FOUND, ErrorCode.BOOKMARK_ALREADY_EXISTS})
     @PostMapping
-    public ResponseEntity<BookmarkResponse> addBookmark(@RequestBody BookmarkRequest request) {
+    public ResponseEntity<BookmarkResponse> addBookmark(@Valid @RequestBody BookmarkRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(bookmarkService.addBookmark(request));
     }
 
