@@ -42,3 +42,6 @@ dump.rdb
 ### AI ###
 AGENTS.md
 CLAUDE.md
+
+### SSL/Nginx ###
+certbot/
